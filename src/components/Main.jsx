@@ -1,26 +1,30 @@
-import { useState, useEffect} from 'react';
-import getAllCountriesInfo  from '../services/countriesService';
+import { useState, useEffect } from 'react';
+import getAllCountriesInfo from '../services/countriesService';
+import Country from './Country';
 
 const Main = () => {
     //state visada top level - virsuje
     const [countries, setCountries] = useState([]);
 
-    const getData = ()  => {
+    const getData = () => {
         //gauti duomenis is services aprasyto axios get metodo
-       getAllCountriesInfo()
-       .then(response => 
-        setCountries(response.data)       
-        )}
+        getAllCountriesInfo()
+            .then(response => {
+                setCountries(response)
+            }
+
+            )
+    }
 
     //kada pakviesti, daryti req - uzklausa - pasako mums useEffect
-    useEffect(()=>{
+    useEffect(() => {
         getData();
     }, []);
-    
-    console.log(countries)
+
+    // console.log(countries)
     return (
         <div>
-            main
+            <Country allCountries={countries} />
         </div>
     )
 }
