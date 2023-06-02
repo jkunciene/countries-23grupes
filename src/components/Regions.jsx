@@ -1,6 +1,8 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const Regions = ({ regions, filterData }) => {
   console.log(regions);
@@ -9,7 +11,7 @@ const Regions = ({ regions, filterData }) => {
     <div>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Countries</Navbar.Brand>
+          <Navbar.Brand href="#home" className="mx-5">Countries</Navbar.Brand>
           <Nav className="me-auto" >
             { regions.map((region, index) => (
                 <Nav.Link href="#" key={index} 
@@ -17,6 +19,15 @@ const Regions = ({ regions, filterData }) => {
                 >{region}</Nav.Link>
               )) }
           </Nav>
+          <Form className="d-flex">
+            <Form.Control
+              type="search"
+              placeholder="Search"
+              className="me-2"
+              aria-label="Search"
+            />
+            <Button variant="outline-success">Search</Button>
+            </Form>
         </Container>
       </Navbar>
     </div>
