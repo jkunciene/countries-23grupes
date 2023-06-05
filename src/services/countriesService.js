@@ -27,7 +27,21 @@ const searchCountry = async (name) => {
     }
 }
 
+
+const getOneCountry = async (oneCountry)=>{
+    try {
+        const res = await fetch(`https://restcountries.com/v3.1/name/${oneCountry}?fullText=true`)
+        const data = await res.json()
+        console.log(data, "getOneCountry services")
+        return data;
+
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 export {
     getAllCountriesInfo,
     searchCountry,
+    getOneCountry
 } 
