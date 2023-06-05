@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import getAllCountriesInfo from '../services/countriesService';
+import { getAllCountriesInfo, searchCountry } from '../services/countriesService';
 import Country from './Country';
 import Regions from './Regions';
 
@@ -11,8 +11,15 @@ const Main = () => {
     
     const getData = () => {
         //gauti duomenis is services aprasyto axios get metodo
-        getAllCountriesInfo().then(response =>setCountries(response))}
+        getAllCountriesInfo().then(response =>{
+            setCountries(response)
+            setFilteredCountries(response)
+        })}
 
+    const getSearchResult = (word)=>{
+        searchCountry('german').then(response =>console.log(response))
+    }
+    getSearchResult('german')
 const uniqueRegions = ["All", ...new Set(countries.map((country) => country.region))]
   console.log(uniqueRegions);
 
@@ -31,6 +38,7 @@ const uniqueRegions = ["All", ...new Set(countries.map((country) => country.regi
     //kada pakviesti, daryti req - uzklausa - pasako mums useEffect
     useEffect(() => {
         getData();
+        console.log('useEffect')
     }, []);
 
     return (
