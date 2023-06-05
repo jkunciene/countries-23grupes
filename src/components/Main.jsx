@@ -6,12 +6,17 @@ import {
 } from '../services/countriesService';
 import Country from './Country';
 import Regions from './Regions';
+import OneCountryModal from './OneCountryModal';
+
+import Modal from 'react-modal';
 
 
 const Main = () => {
     //state visada top level - virsuje
     const [countries, setCountries] = useState([]);
     const [filteredCountries, setFilteredCountries] = useState([]);
+    const [oneCountry, setOneCountry] = useState([]);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const getData = () => {
         //gauti duomenis is services aprasyto axios get metodo
@@ -48,7 +53,20 @@ const Main = () => {
     //kada pakviesti, daryti req - uzklausa - pasako mums useEffect
 
     const getOneCountryInfo = (country) => {
-        getOneCountry(country).then(response => console.log(country, response))
+        getOneCountry(country).then(response => {
+            console.log(country, response);
+            setOneCountry(response);
+            setModalIsOpenToTrue();
+        })
+    }
+
+    const setModalIsOpenToTrue = () => {
+        setModalIsOpen(true);
+        Modal.setAppElement('body');
+    }
+
+    const setModalIsOpenToFalse = () => {
+        setModalIsOpen(false);
     }
 
     useEffect(() => {
@@ -63,8 +81,14 @@ const Main = () => {
                 filterData={filterData}
                 searchCountries={getSearchResult} />
 
-            <Country allCountries={filteredCountries} getOneCountryInfo={getOneCountryInfo}/>
+            <Country allCountries={filteredCountries} getOneCountryInfo={getOneCountryInfo} setModalIsOpenToTrue={setModalIsOpenToTrue} />
+            <Modal isOpen={modalIsOpen} className='d-flex justify-content-center pt-5'>
+                <OneCountryModal oneCountry={oneCountry} setModalIsOpenToFalse={setModalIsOpenToFalse} />
+            </Modal>
+            
         </div>
     )
 }
+
+
 export default Main
