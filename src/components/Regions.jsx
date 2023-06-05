@@ -4,7 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 
 
-const Regions = ({ regions, filterData }) => {
+const Regions = ({ regions, filterData, searchCountries }) => {
   console.log(regions);
 
   return (
@@ -25,6 +25,7 @@ const Regions = ({ regions, filterData }) => {
                     placeholder="Search"
                     className="me-2"
                     aria-label="Search"
+                    onChange={(e)=>searchCountries(e.target.value)}
                   />
                   
                 </Form>

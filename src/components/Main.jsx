@@ -16,10 +16,14 @@ const Main = () => {
             setFilteredCountries(response)
         })}
 
-    const getSearchResult = (word)=>{
-        searchCountry('german').then(response =>console.log(response))
+    const getSearchResult = (searchWord)=>{
+        searchCountry(searchWord).then(response =>{
+            if(response !== undefined){
+                console.log(response, searchWord)
+                setFilteredCountries(response) }
+            })
     }
-    getSearchResult('german')
+
 const uniqueRegions = ["All", ...new Set(countries.map((country) => country.region))]
   console.log(uniqueRegions);
 
@@ -45,7 +49,8 @@ const uniqueRegions = ["All", ...new Set(countries.map((country) => country.regi
         <div className='container'>
             <Regions 
             regions={uniqueRegions} 
-            filterData={filterData}/>
+            filterData={filterData}
+            searchCountries={getSearchResult}/>
 
             <Country allCountries={filteredCountries} />
         </div>
